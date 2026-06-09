@@ -224,6 +224,33 @@ export const PROJECTS: Project[] = [
     demoUrl: "https://highlightly-demo.azurewebsites.net/",
     githubUrl: "https://github.com/jatinswarnkar/Highlightly-AI-powered-YouTube-video-highlights-generator",
   },
+  {
+    title: "Chat Sphere",
+    description: "Real-time room-based chat application using WebSockets and Redis channel layers.",
+    technologies: [
+      "Django",
+      "Django Channels",
+      "WebSockets",
+      "Redis",
+      "Python",
+      "JavaScript",
+    ],
+    capabilities: [
+      "Real-time Messaging",
+      "Room-based Broadcasting",
+      "Online User Tracking",
+      "Message Persistence",
+    ],
+    architecture: [
+      "Client (WebSockets)",
+      "Django Channels (ASGI)",
+      "Redis Channel Layer",
+      "Django ORM",
+      "PostgreSQL / SQLite",
+    ],
+    hasScreenshots: false,
+    githubUrl: "https://github.com/jatinswarnkar/realtime_chat_app",
+  },
 ];
 
 export const CENTER_SKILL: SkillNode = {
