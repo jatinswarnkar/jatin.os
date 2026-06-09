@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JATIN.OS
 
-## Getting Started
+An immersive AI-powered portfolio inspired by Iron Man JARVIS, Apple Vision Pro, and Vercel AI.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+JATIN.OS is not a traditional portfolio website.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+It is designed as an AI operating system that showcases experience, projects, and architecture through interactive 3D visuals, cinematic animations, and intelligent interfaces.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* Immersive boot sequence
+* 3D Arc Reactor hero section
+* Animated neural network background
+* AI analytics architecture visualization
+* Interactive experience timeline
+* Floating project cards
+* Orbiting skills graph
+* AI Playground powered by resume embeddings
+* 3D global network visualization
+* Terminal-inspired footer
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Next.js
+* TypeScript
+* Tailwind CSS
+* Shadcn UI
+* Framer Motion
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3D
 
-## Deploy on Vercel
+* Three.js
+* React Three Fiber
+* Drei
+* Spline
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### AI
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* LangChain
+* Azure OpenAI
+* FAISS
+
+## Inspiration
+
+* Iron Man JARVIS
+* Apple Vision Pro
+* Vercel AI
+* Linear
+* Arc Browser
+
+## Philosophy
+
+Modern portfolios should tell stories rather than display cards.
+
+JATIN.OS aims to present software engineering and AI systems as experiences instead of static pages.
+
+## Future Plans
+
+* Voice interaction
+* Multi-agent assistant
+* Real-time AI Playground
+* LangGraph integration
+* Dynamic resume knowledge base
+
+---
+
+Built with ❤️ by Jatin Swarnkar.
