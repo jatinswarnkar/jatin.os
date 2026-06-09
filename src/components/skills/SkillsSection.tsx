@@ -129,9 +129,12 @@ function OrbitRing({ radius, color }: { radius: number; color: string }) {
   }, [radius]);
 
   return (
-    <line geometry={geometry}>
-      <lineBasicMaterial color={color} transparent opacity={0.07} />
-    </line>
+    <>
+      {/* @ts-ignore: R3F line type conflicts with SVG line */}
+      <line geometry={geometry}>
+        <lineBasicMaterial color={color} transparent opacity={0.07} />
+      </line>
+    </>
   );
 }
 
