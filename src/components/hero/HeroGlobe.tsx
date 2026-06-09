@@ -76,6 +76,7 @@ function ArcLine({
 
   return (
     <group>
+      {/* @ts-ignore: R3F line type conflicts with SVG line */}
       <line geometry={geometry}>
         <lineBasicMaterial
           color={color}
