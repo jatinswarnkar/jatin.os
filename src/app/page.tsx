@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import BootScreen from "@/components/boot/BootScreen";
 import HeroSection from "@/components/hero/HeroSection";
 import Navbar from "@/components/nav/Navbar";
-import MetricsSection from "@/components/metrics/MetricsSection";
 import AIArchitectureSection from "@/components/architecture/AIArchitectureSection";
 import ExperienceSection from "@/components/experience/ExperienceSection";
 import ProjectsSection from "@/components/projects/ProjectsSection";
@@ -39,51 +38,43 @@ export default function Home() {
         {!booted && <BootScreen onBootComplete={handleBootComplete} />}
       </AnimatePresence>
 
-      {/* Main Application — only after boot */}
-      {booted && (
-        <>
-          {/* Neural Network Background — fixed behind everything */}
-          <NeuralBackground />
+      {/* Main Application */}
+      <div style={{ display: booted ? "block" : "none" }} aria-hidden={!booted}>
+        <NeuralBackground />
+      </div>
+      <div style={{ visibility: booted ? "visible" : "hidden" }}>
+        <Navbar />
+        <motion.div
+          className="content-layer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: booted ? 1 : 0 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
+          {/* 1. Hero */}
+          <HeroSection />
 
-          {/* Navigation */}
-          <Navbar />
+          {/* 2. AI Analytics Architecture */}
+          <AIArchitectureSection />
 
-          {/* Content Layer */}
-          <motion.div
-            className="content-layer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
-            {/* 1. Hero */}
-            <HeroSection />
+          {/* 4. Experience Timeline */}
+          <ExperienceSection />
 
-            {/* 2. Metrics Dashboard */}
-            <MetricsSection />
+          {/* 5. Projects */}
+          <ProjectsSection />
 
-            {/* 3. AI Analytics Architecture */}
-            <AIArchitectureSection />
+          {/* 6. Tech Radar (Skills) */}
+          <SkillsSection />
 
-            {/* 4. Experience Timeline */}
-            <ExperienceSection />
+          {/* 7. AI Playground */}
+          <AIPlaygroundSection />
 
-            {/* 5. Projects */}
-            <ProjectsSection />
+          {/* 8. Contact */}
+          <ContactSection />
 
-            {/* 6. Tech Radar (Skills) */}
-            <SkillsSection />
-
-            {/* 7. AI Playground */}
-            <AIPlaygroundSection />
-
-            {/* 8. Contact */}
-            <ContactSection />
-
-            {/* 9. Terminal Footer */}
-            <TerminalFooter />
-          </motion.div>
-        </>
-      )}
+          {/* 9. Terminal Footer */}
+          <TerminalFooter />
+        </motion.div>
+      </div>
     </>
   );
 }

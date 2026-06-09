@@ -134,6 +134,19 @@ export default function HeroSection() {
               variants={itemVariants}
               className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-6"
             >
+              <a
+                href="/assets/Resume_Jatin_Swarnkar.pdf"
+                download="Jatin_Swarnkar_Resume.pdf"
+                className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-0.5 inline-block text-center"
+                style={{
+                  background: "linear-gradient(135deg, rgba(0,217,255,0.2), rgba(139,92,246,0.2))",
+                  border: "1px solid rgba(0,217,255,0.4)",
+                  color: "#FFFFFF",
+                  boxShadow: "0 0 20px rgba(0,217,255,0.1)",
+                }}
+              >
+                ↓ Download Resume
+              </a>
               <button
                 onClick={() => scrollToSection("experience")}
                 className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl cursor-pointer font-semibold text-sm sm:text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,217,255,0.15)] hover:-translate-y-0.5"
@@ -167,17 +180,6 @@ export default function HeroSection() {
                 }}
               >
                 View Projects
-              </button>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl cursor-pointer font-semibold text-sm sm:text-base transition-all duration-300 hover:bg-white/5 hover:border-white/20 hover:text-white hover:-translate-y-0.5"
-                style={{
-                  background: "transparent",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  color: "rgba(255,255,255,0.7)",
-                }}
-              >
-                Contact
               </button>
             </motion.div>
           </motion.div>

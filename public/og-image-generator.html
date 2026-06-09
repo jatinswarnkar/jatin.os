@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OG Image Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1200px;
+      height: 630px;
+      background-color: #050816;
+      background-image: radial-gradient(circle at center, rgba(0,217,255,0.05) 0%, transparent 70%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .container {
+      text-align: center;
+      z-index: 10;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 110px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0;
+      letter-spacing: -2px;
+      text-shadow: 0 0 80px rgba(0,217,255,0.2);
+    }
+
+    h2 {
+      font-size: 42px;
+      font-weight: 600;
+      color: #00D9FF;
+      margin: 20px 0 50px 0;
+      letter-spacing: 1px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 80px;
+    }
+
+    .tag {
+      padding: 12px 30px;
+      background: rgba(0, 217, 255, 0.08);
+      border: 2px solid rgba(0, 217, 255, 0.25);
+      border-radius: 100px;
+      color: #FFFFFF;
+      font-size: 24px;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(0,217,255,0.1);
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 40px;
+      color: rgba(255,255,255,0.4);
+      font-size: 24px;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 2px;
+    }
+
+    /* Decorative elements */
+    .glow-blob-1 {
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .glow-blob-2 {
+      position: absolute;
+      bottom: -150px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,217,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-blob-1"></div>
+  <div class="glow-blob-2"></div>
+
+  <div class="container">
+    <h1>Jatin Swarnkar</h1>
+    <h2>AI Engineer & Software Engineer</h2>
+
+    <div class="tags">
+      <div class="tag">LangChain</div>
+      <div class="tag">Azure OpenAI</div>
+      <div class="tag">Django</div>
+    </div>
+  </div>
+
+  <div class="footer">jatin-os.vercel.app</div>
+</body>
+</html>

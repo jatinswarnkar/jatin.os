@@ -2,6 +2,7 @@
 
 import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { Html, Line, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Suspense } from "react";
 import SectionWrapper from "@/components/ui/SectionWrapper";
@@ -27,41 +28,8 @@ const CATEGORY_COLORS: Record<string, string> = {
   tools: "#F87171",
 };
 
-// Canvas-rendered text label (no HTML = no white box)
-function CanvasLabel({ text, color }: { text: string; color: string }) {
-  const texture = useMemo(() => {
-    if (typeof document === "undefined") return null;
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d")!;
-    canvas.width = 256;
-    canvas.height = 48;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = "600 20px 'Inter', system-ui, sans-serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillStyle = color;
-    ctx.shadowColor = color;
-    ctx.shadowBlur = 4;
-    ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.needsUpdate = true;
-    return tex;
-  }, [text, color]);
-
-  if (!texture) return null;
-
-  return (
-    <sprite scale={[1.0, 0.2, 1]} position={[0, 0.18, 0]}>
-      <spriteMaterial
-        map={texture}
-        transparent
-        opacity={0.85}
-        depthWrite={false}
-        depthTest={false}
-      />
-    </sprite>
-  );
-}
+// High-quality DOM text labels instead of canvas sprites
+// Handled directly via <Html> from drei in the components
 
 // Center sun — Python
 function CenterSun() {
@@ -83,9 +51,9 @@ function CenterSun() {
         <meshStandardMaterial
           color="#00D9FF"
           emissive="#00D9FF"
-          emissiveIntensity={3}
-          roughness={0.05}
-          metalness={0.95}
+          emissiveIntensity={1.0}
+          roughness={0.15}
+          metalness={0.85}
         />
       </mesh>
       {/* Glow shell */}
@@ -94,7 +62,7 @@ function CenterSun() {
         <meshBasicMaterial
           color="#00D9FF"
           transparent
-          opacity={0.06}
+          opacity={0.12}
           side={THREE.BackSide}
         />
       </mesh>
@@ -104,36 +72,47 @@ function CenterSun() {
         <meshBasicMaterial
           color="#00D9FF"
           transparent
-          opacity={0.025}
+          opacity={0.05}
           side={THREE.BackSide}
         />
       </mesh>
       {/* Label */}
-      <CanvasLabel text="Python" color="#050816" />
+      <Html position={[0, -0.7, 0]} center zIndexRange={[100, 0]}>
+        <div style={{
+          color: "#FFFFFF",
+          fontFamily: "var(--font-inter)",
+          fontSize: "14px",
+          fontWeight: 700,
+          letterSpacing: "1px",
+          textShadow: "0 0 8px rgba(0, 217, 255, 0.8), 0 0 2px #000",
+          pointerEvents: "none",
+          whiteSpace: "nowrap"
+        }}>
+          PYTHON
+        </div>
+      </Html>
       {/* Light */}
-      <pointLight color="#00D9FF" intensity={6} distance={10} decay={2} />
+      <pointLight color="#00D9FF" intensity={3} distance={10} decay={2} />
     </group>
   );
 }
 
-// Orbit ring visual — thin concentric circle (flat on XZ plane)
+// Orbit ring visual — using Drei Line for thick, distinct paths
 function OrbitRing({ radius, color }: { radius: number; color: string }) {
-  const geometry = useMemo(() => {
-    const points = [];
+  const points = useMemo(() => {
+    const pts = [];
     const segments = 128;
     for (let i = 0; i <= segments; i++) {
       const angle = (i / segments) * Math.PI * 2;
-      points.push(new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius));
+      pts.push(new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius));
     }
-    return new THREE.BufferGeometry().setFromPoints(points);
+    return pts;
   }, [radius]);
 
   return (
     <>
-      {/* @ts-ignore: R3F line type conflicts with SVG line */}
-      <line geometry={geometry}>
-        <lineBasicMaterial color={color} transparent opacity={0.07} />
-      </line>
+      <Line points={points} color={color} transparent opacity={0.3} lineWidth={1.5} />
+      <Line points={points} color={color} transparent opacity={0.05} lineWidth={4} />
     </>
   );
 }
@@ -156,9 +135,8 @@ function SkillPlanet({
 }) {
   const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Mesh>(null);
-  const labelRef = useRef<THREE.Group>(null);
 
-  useFrame(({ clock, camera }) => {
+  useFrame(({ clock }) => {
     if (!groupRef.current || !meshRef.current) return;
     const t = clock.getElapsedTime();
     const angle = t * speed + offset;
@@ -171,11 +149,6 @@ function SkillPlanet({
     );
 
     meshRef.current.rotation.y = t * 0.5;
-
-    // Billboard the label
-    if (labelRef.current) {
-      labelRef.current.quaternion.copy(camera.quaternion);
-    }
   });
 
   return (
@@ -202,9 +175,20 @@ function SkillPlanet({
         />
       </mesh>
       {/* Label */}
-      <group ref={labelRef} position={[0, size + 0.12, 0]}>
-        <CanvasLabel text={name} color={color} />
-      </group>
+      <Html position={[0, size + 0.3, 0]} center zIndexRange={[100, 0]}>
+        <div style={{
+          color: "#FFFFFF",
+          fontFamily: "var(--font-inter)",
+          fontSize: "11px",
+          fontWeight: 600,
+          letterSpacing: "0.5px",
+          textShadow: `0 0 6px ${color}, 0 0 3px #000, 0 0 1px #000`,
+          pointerEvents: "none",
+          whiteSpace: "nowrap"
+        }}>
+          {name.toUpperCase()}
+        </div>
+      </Html>
       {/* Light */}
       <pointLight color={color} intensity={0.2} distance={1.5} decay={2} />
     </group>
@@ -217,6 +201,12 @@ function SkillPlanet({
 
 function SolarSystemScene() {
   const sceneRef = useRef<THREE.Group>(null);
+
+  useFrame(({ clock }) => {
+    if (!sceneRef.current) return;
+    sceneRef.current.rotation.y = clock.getElapsedTime() * 0.04;
+
+  });
 
   // Distribute skills into rings by category
   const planets = useMemo(() => {
@@ -245,7 +235,7 @@ function SolarSystemScene() {
       const offset = (idx / count) * Math.PI * 2;
       const color = CATEGORY_COLORS[skill.category] || "#00D9FF";
       // Larger planets on inner rings, smaller on outer
-      const size = 0.09 - ringIdx * 0.01;
+      const size = 0.11 - ringIdx * 0.01;
 
       return {
         name: skill.name,
@@ -259,8 +249,14 @@ function SolarSystemScene() {
   }, []);
 
   return (
-    <group ref={sceneRef} rotation={[0.8, 0, 0.15]}>
-      {/* Center */}
+    <>
+      <OrbitControls 
+        enableZoom={false} 
+        enablePan={false} 
+        autoRotate={false}
+      />
+      <group ref={sceneRef} rotation={[1.5, 0, 0.6]}>
+        {/* Center */}
       <CenterSun />
 
       {/* Orbit rings */}
@@ -274,7 +270,8 @@ function SolarSystemScene() {
       ))}
 
       <ambientLight intensity={0.12} />
-    </group>
+      </group>
+    </>
   );
 }
 
@@ -290,13 +287,13 @@ export default function SkillsSection() {
           className="text-4xl md:text-5xl font-bold text-white mb-4"
           style={{ fontFamily: "var(--font-space-grotesk)" }}
         >
-          Tech Radar
+          Tech Stack
         </h2>
         <p
           className="text-base md:text-lg max-w-xl mx-auto"
           style={{ color: "rgba(255,255,255,0.5)" }}
         >
-          Python at the core — technologies orbiting in concentric circles
+          Core languages and frameworks I use in production
         </p>
         <div
           className="w-20 h-[2px] mx-auto mt-6"
@@ -307,9 +304,9 @@ export default function SkillsSection() {
       </div>
 
       {/* 3D Canvas */}
-      <div className="w-full h-[500px] md:h-[650px]">
+      <div className="w-full h-[520px] md:h-[680px]">
         <Canvas
-          camera={{ position: [0, 3, 6], fov: 50 }}
+          camera={{ position: [0, 4, 7], fov: 45 }}
           dpr={[1, 2]}
           gl={{
             antialias: true,
@@ -324,6 +321,34 @@ export default function SkillsSection() {
             <SolarSystemScene />
           </Suspense>
         </Canvas>
+      </div>
+
+      <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 px-4 md:px-8 md:hidden">
+        {[
+          { label: "AI / ML", color: "#A78BFA", 
+            skills: ["LangChain", "LangGraph", "Azure OpenAI", "FAISS"] },
+          { label: "Backend", color: "#00D9FF", 
+            skills: ["Python", "Django", "DRF"] },
+          { label: "Databases", color: "#34D399", 
+            skills: ["PostgreSQL", "MySQL", "Oracle"] },
+          { label: "Cloud", color: "#FBBF24", 
+            skills: ["AWS", "Azure"] },
+          { label: "Tools", color: "#F87171", 
+            skills: ["Git", "Linux"] },
+        ].map((cat) => (
+          <div key={cat.label} className="glass-card p-4">
+            <p className="text-xs font-semibold mb-2" style={{ color: cat.color }}>
+              {cat.label}
+            </p>
+            <div className="flex flex-col gap-1">
+              {cat.skills.map((s) => (
+                <span key={s} className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Legend */}

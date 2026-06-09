@@ -134,6 +134,19 @@ export default function ContactSection() {
           </motion.a>
         ))}
       </div>
+
+      <div className="text-center mt-8">
+        <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
+          Or reach out directly:{" "}
+          <a
+            href="mailto:jatinswarnkar04@gmail.com"
+            className="hover:text-[#00D9FF] transition-colors duration-300"
+            style={{ color: "rgba(255,255,255,0.6)" }}
+          >
+            jatinswarnkar04@gmail.com
+          </a>
+        </p>
+      </div>
     </SectionWrapper>
   );
 }

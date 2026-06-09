@@ -5,14 +5,6 @@
 
 // --- Types ---
 
-export interface Metric {
-  label: string;
-  value: number;
-  suffix: string;
-  prefix?: string;
-  icon: string;
-}
-
 export interface ExperienceEntry {
   year: string;
   role: string;
@@ -53,19 +45,20 @@ export interface AIArchitectureNode {
 
 export const PERSONAL = {
   name: "Jatin Swarnkar",
-  roles: ["Software Engineer", "AI Engineer"],
-  tagline: "Building Intelligent Systems",
+  roles: ["AI Engineer", "Software Engineer"],
+  tagline: "AI Engineer. Backend Systems. LLM Pipelines.",
   about:
-    "Software Engineer with experience in backend systems, AI-powered applications, cloud infrastructure, and data engineering. Passionate about building intelligent systems, analytics copilots, and agentic AI workflows.",
+    "AI Engineer with 1+ year building production LangChain agents, RAG pipelines, and NL-to-SQL systems at Perceptiviti Data Solutions. Experienced in backend engineering with Django, PostgreSQL, and cloud deployments on AWS and Azure. Passionate about agentic AI workflows and intelligent data systems.",
   location: "India",
-  availability: "Open to Software Engineer and AI Engineer opportunities",
+  availability: "Open to AI Engineer and Software Engineer roles — India / Remote",
 } as const;
 
 export const TYPING_STRINGS = [
-  "Building AI Agents",
-  "Designing Analytics Copilots",
-  "Orchestrating LLM Workflows",
-  "Building Cloud-Native Platforms",
+  "Building NL-to-SQL Pipelines",
+  "Designing Multi-Agent Systems",
+  "Building RAG-Powered Applications",
+  "Engineering Self-Healing AI Agents",
+  "Deploying Cloud-Native Backends",
 ] as const;
 
 export const CURRENT_FOCUS = [
@@ -74,14 +67,6 @@ export const CURRENT_FOCUS = [
   "Cloud Platforms",
   "Retrieval-Augmented Generation",
 ] as const;
-
-export const METRICS: Metric[] = [
-  { label: "Years Experience", value: 1, suffix: "+", icon: "experience" },
-  { label: "Efficiency Gain", value: 60, suffix: "%", icon: "efficiency" },
-  { label: "Production AI Systems", value: 3, suffix: "+", icon: "ai" },
-  { label: "Azure & AWS Platforms", value: 2, suffix: "+", icon: "cloud" },
-  { label: "Complex Pipelines", value: 5, suffix: "+", icon: "backend" },
-];
 
 export const AI_ARCHITECTURE_NODES: AIArchitectureNode[] = [
   {
@@ -139,26 +124,25 @@ export const EXPERIENCE: ExperienceEntry[] = [
     year: "2025",
     role: "Software Engineer",
     company: "Perceptiviti Data Solutions",
-    duration: "July 2025 – Present",
+    duration: "July 2025 – Present · Gurgaon, India",
     highlights: [
-      "Built an AI-driven analytics copilot using LangChain, Azure AI Foundry, Azure OpenAI, and PostgreSQL",
-      "Implemented Planning, Schema Retrieval, Conversational Memory, Self-Healing SQL Correction, Dynamic Chart Generation",
-      "Improved analyst efficiency by 60%",
-      "Built Case Management System with RBAC, multi-stage workflows, bulk PostgreSQL processing, row-level locking",
-      "Built and optimized Analytics Platform APIs using Django REST Framework",
-      "Built backend features and optimized database operations for Fraud Detection Platform",
-      "Developed ETL Pipelines: Oracle → Transformation → MySQL with multithreaded execution",
+      "Built an AI-powered natural language-to-SQL platform using LangChain, Azure AI Foundry, and Azure OpenAI — analysts can query 25+ relational datasets in plain English, improving efficiency by 60%",
+      "Implemented self-healing SQL correction, context-aware schema retrieval, token-based conversational memory, and dynamic chart generation in the analytics copilot pipeline",
+      "Developed a configurable Case Management System with RBAC, multi-stage audit workflows, bulk PostgreSQL processing, and concurrency-safe transitions using row-level locking",
+      "Optimized backend APIs for the analytics platform using Django REST Framework and PostgreSQL — improved maintainability and system performance across 8+ endpoints",
+      "Contributed to the core Fraud Detection Platform — implemented backend features and optimized database operations on high-volume transaction data",
+      "Built multithreaded ETL pipelines for Oracle → transformation → MySQL, reducing data migration time significantly",
     ],
   },
   {
     year: "2024",
     role: "Software Engineer Intern",
     company: "Perceptiviti Data Solutions",
-    duration: "Nov 2024 – June 2025",
+    duration: "Nov 2024 – June 2025 · Gurgaon, India · (Converted to full-time)",
     highlights: [
-      "Automated reporting process: 2 days → 2 hours",
-      "Built custom rules for Sherlock AI",
-      "Worked on AWS and Azure deployments",
+      "Automated 3 manual reporting workflows using Python — reduced generation time from 2 days to under 2 hours, eliminating repetitive manual tasks",
+      "Configured and deployed applications across AWS (RDS) and Microsoft Azure (VMs, PostgreSQL Flexible Server) to improve deployment and data accessibility",
+      "Developed custom detection rules for Sherlock's rule-based AI using Python and MySQL, tailoring fraud detection solutions to client requirements",
     ],
   },
 ];
@@ -166,7 +150,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
 export const PROJECTS: Project[] = [
   {
     title: "AI Interview Copilot",
-    description: "Multi-agent interview preparation platform.",
+    description: "A LangGraph multi-agent system that analyzes resumes against job descriptions, detects skill gaps, generates targeted interview questions, and builds personalized learning roadmaps — all in one orchestrated pipeline.",
     technologies: [
       "LangGraph",
       "Azure OpenAI",
@@ -197,7 +181,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Highlightly",
-    description: "AI-powered video highlights generator.",
+    description: "An AI video pipeline that transcribes content with OpenAI Whisper, scores segments using emotion, visual, and audio analysis via HuggingFace, then auto-clips and stores highlights to Azure Blob Storage.",
     technologies: [
       "OpenAI Whisper",
       "HuggingFace",
@@ -226,7 +210,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Chat Sphere",
-    description: "Real-time room-based chat application using WebSockets and Redis channel layers.",
+    description: "A Django Channels WebSocket application demonstrating real-time room broadcasting, online presence tracking, and message persistence via Redis channel layers and PostgreSQL.",
     technologies: [
       "Django",
       "Django Channels",
@@ -259,24 +243,26 @@ export const CENTER_SKILL: SkillNode = {
 };
 
 export const ORBITING_SKILLS: SkillNode[] = [
+  // Ring 1 — Core (closest)
   { name: "Django", category: "core" },
   { name: "DRF", category: "core" },
+
+  // Ring 2 — AI/ML
   { name: "LangChain", category: "ai" },
   { name: "LangGraph", category: "ai" },
-  { name: "Azure AI Foundry", category: "ai" },
   { name: "Azure OpenAI", category: "ai" },
-  { name: "MCP", category: "ai" },
+  { name: "FAISS", category: "ai" },
+
+  // Ring 3 — Database
   { name: "PostgreSQL", category: "database" },
   { name: "MySQL", category: "database" },
   { name: "Oracle", category: "database" },
-  { name: "FAISS", category: "ai" },
-  { name: "RAG", category: "ai" },
+
+  // Ring 4 — Cloud + Tools
   { name: "AWS", category: "cloud" },
   { name: "Azure", category: "cloud" },
   { name: "Git", category: "tools" },
   { name: "Linux", category: "tools" },
-  { name: "ETL Pipelines", category: "tools" },
-  { name: "Multithreading", category: "tools" },
 ];
 
 export const SOCIAL_LINKS: SocialLink[] = [

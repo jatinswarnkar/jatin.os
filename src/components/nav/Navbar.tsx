@@ -122,24 +122,32 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Status indicator */}
-            <div className="hidden md:flex items-center gap-2">
-              <span
-                className="w-2 h-2 rounded-full"
+            {/* Status indicator and Resume */}
+            <div className="hidden md:flex items-center gap-4">
+              {/* Status dot */}
+              <div className="flex items-center gap-2">
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: "#00D9FF", boxShadow: "0 0 8px rgba(0,217,255,0.5)" }}
+                />
+                <span className="text-xs" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-space-grotesk)" }}>
+                  Open to Work
+                </span>
+              </div>
+
+              {/* Resume download button */}
+              <a
+                href="/assets/Resume_Jatin_Swarnkar.pdf"
+                download="Jatin_Swarnkar_Resume.pdf"
+                className="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 hover:-translate-y-0.5"
                 style={{
-                  background: "#00D9FF",
-                  boxShadow: "0 0 8px rgba(0,217,255,0.5)",
-                }}
-              />
-              <span
-                className="text-xs"
-                style={{
-                  color: "rgba(255,255,255,0.3)",
-                  fontFamily: "var(--font-space-grotesk)",
+                  background: "rgba(0,217,255,0.1)",
+                  border: "1px solid rgba(0,217,255,0.3)",
+                  color: "#00D9FF",
                 }}
               >
-                System Active
-              </span>
+                Resume ↓
+              </a>
             </div>
 
             {/* Mobile menu button */}
@@ -191,6 +199,15 @@ export default function Navbar() {
                       {link.label}
                     </a>
                   ))}
+                  <a
+                    href="/assets/Resume_Jatin_Swarnkar.pdf"
+                    download="Jatin_Swarnkar_Resume.pdf"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-sm font-medium py-2"
+                    style={{ fontFamily: "var(--font-space-grotesk)", color: "#00D9FF" }}
+                  >
+                    Resume ↓
+                  </a>
                 </div>
               </motion.div>
             )}

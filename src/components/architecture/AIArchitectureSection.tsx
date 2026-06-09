@@ -42,6 +42,15 @@ export default function AIArchitectureSection() {
               "linear-gradient(90deg, transparent, #8B5CF6, transparent)",
           }}
         />
+        <p
+          className="text-sm md:text-base text-center max-w-2xl mx-auto mt-6"
+          style={{ color: "rgba(255,255,255,0.5)", lineHeight: "1.7" }}
+        >
+          Architecture of the{" "}
+          <span style={{ color: "#00D9FF" }}>AI Analytics Copilot</span>{" "}
+          I built at Perceptiviti — a production system used to query 25+ datasets
+          in plain English with self-healing SQL and dynamic chart generation.
+        </p>
       </div>
 
       {/* Flow Diagram */}

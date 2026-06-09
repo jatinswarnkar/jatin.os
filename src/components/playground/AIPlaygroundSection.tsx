@@ -4,42 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
-// Pre-configured Q&A about Jatin
-const DEMO_QA: Record<string, string> = {
-  default:
-    "I'm JATIN.OS AI assistant. I can answer questions about Jatin's experience, skills, and projects. Try asking about his work with AI, backend systems, or specific technologies.",
-  experience:
-    "Jatin is a Software Engineer at Perceptiviti Data Solutions with experience in backend systems, AI-powered applications, and cloud infrastructure. He has built an AI Analytics Copilot using LangChain, Azure AI Foundry, and Azure OpenAI that improved analyst efficiency by 60%. He also built Case Management Systems with RBAC and multi-stage workflows, ETL Pipelines with multithreaded execution, and Fraud Detection Platforms.",
-  skills:
-    "Jatin's core language is Python, with expertise in Django & DRF. In AI/ML: LangChain, LangGraph, Azure OpenAI, FAISS, RAG. Databases: PostgreSQL, MySQL, Oracle. Cloud: AWS, Azure. He has strong experience with ETL pipelines, multithreading, and building production-grade AI agents.",
-  projects:
-    "Two key projects: 1) AI Interview Copilot — a multi-agent platform using LangGraph, Azure OpenAI, FAISS, and RAG for resume analysis, skill gap detection, and interview question generation. 2) Highlightly — an AI-powered video highlights generator using OpenAI Whisper, HuggingFace, and FFmpeg for transcription, emotion analysis, and automatic clipping.",
-  copilot:
-    "The AI Analytics Copilot is Jatin's flagship project at Perceptiviti. It uses LangChain and Azure OpenAI to convert natural language questions into SQL queries with a self-healing mechanism. The pipeline includes: Planner → Schema Retrieval → SQL Generation → Query Execution → Self-Healing → Chart Generation → Insights. It improved analyst efficiency by 60% across 25+ datasets.",
-};
-
-function matchResponse(query: string): string {
-  const q = query.toLowerCase();
-  if (q.includes("experience") || q.includes("work") || q.includes("job"))
-    return DEMO_QA.experience;
-  if (
-    q.includes("skill") ||
-    q.includes("tech") ||
-    q.includes("stack") ||
-    q.includes("python")
-  )
-    return DEMO_QA.skills;
-  if (q.includes("project") || q.includes("built") || q.includes("build"))
-    return DEMO_QA.projects;
-  if (
-    q.includes("copilot") ||
-    q.includes("analytics") ||
-    q.includes("ai agent") ||
-    q.includes("langchain")
-  )
-    return DEMO_QA.copilot;
-  return DEMO_QA.default;
-}
+// API integration handles responses
 
 interface Message {
   role: "user" | "assistant";
@@ -72,19 +37,61 @@ export default function AIPlaygroundSection() {
     const userMessage = input.trim();
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
-
-    // Simulate streaming delay
     setIsTyping(true);
-    const response = matchResponse(userMessage);
 
-    // Simulate streaming character by character
-    setTimeout(() => {
-      setIsTyping(false);
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "anthropic-version": "2023-06-01", "x-api-key": process.env.NEXT_PUBLIC_ANTHROPIC_API_KEY || "" },
+        body: JSON.stringify({
+          model: "claude-3-haiku-20240307",
+          max_tokens: 250,
+          system: `You are JATIN.OS, an AI assistant for Jatin Swarnkar's portfolio website.
+Answer ONLY questions about Jatin. Be concise (2-3 sentences max). Be specific and factual.
+
+JATIN'S BACKGROUND:
+- Role: Software Engineer at Perceptiviti Data Solutions, Gurgaon (July 2025–Present)
+- Previously: Software Engineer Intern at same company (Nov 2024–June 2025)
+- Education: B.Tech Computer Science, Bennett University, CGPA 8.97, May 2025
+
+KEY WORK:
+- Built NL-to-SQL analytics copilot: LangChain + Azure OpenAI + PostgreSQL, 25+ datasets, 60% efficiency gain
+- Case Management System with RBAC and row-level locking
+- Fraud Detection Platform backend
+- Multithreaded Oracle→MySQL ETL pipelines
+- Intern: automated reports (2 days→2 hours), AWS/Azure deployments, Sherlock AI rules
+
+SKILLS: Python, Django, DRF, LangChain, LangGraph, Azure OpenAI, Azure AI Foundry, FAISS, RAG, MCP, PostgreSQL, MySQL, Oracle, AWS, Azure, ETL, Git, Linux
+
+PROJECTS:
+1. AI Interview Copilot — LangGraph multi-agent: resume analysis, JD matching, skill-gap detection, question generation, learning roadmaps. Stack: LangGraph, Azure OpenAI, FAISS, Django, PostgreSQL, React. Demo: https://interview-copilot-frontend.onrender.com/
+2. Highlightly — AI video highlights: Whisper transcription, HuggingFace emotion analysis, FFmpeg clipping, Azure Blob storage. Stack: Django, OpenAI Whisper, HuggingFace, FFmpeg. Demo: https://highlightly-demo.azurewebsites.net/
+3. Chat Sphere — Django Channels WebSocket chat with Redis and PostgreSQL
+
+OPEN TO: AI Engineer and Software Engineer roles, India or Remote.
+CONTACT: jatinswarnkar04@gmail.com | linkedin.com/in/jatinswarnkar`,
+          messages: [{ role: "user", content: userMessage }],
+        }),
+      });
+
+      const data = await response.json();
+      const reply =
+        data.content?.[0]?.text ||
+        "I couldn't process that request. Try asking about Jatin's experience, skills, or projects.";
+
+      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+    } catch {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: response },
+        {
+          role: "assistant",
+          content:
+            "Connection error. Try asking: 'What did Jatin build at Perceptiviti?' or 'What is the AI Interview Copilot?'",
+        },
       ]);
-    }, 800 + Math.random() * 500);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   return (
@@ -98,7 +105,7 @@ export default function AIPlaygroundSection() {
           AI Playground
         </h2>
         <p className="text-base md:text-lg max-w-xl mx-auto mt-3" style={{ color: "rgba(255,255,255,0.5)" }}>
-          Chat with an AI assistant trained on Jatin&apos;s resume and experience
+          Live AI — ask about experience, skills, or projects
         </p>
         <div
           className="w-20 h-[2px] mx-auto mt-6"
@@ -232,7 +239,7 @@ export default function AIPlaygroundSection() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about Jatin's experience..."
+                placeholder="e.g. What did Jatin build at Perceptiviti?"
                 className="flex-1 bg-transparent outline-none text-sm"
                 style={{ color: "rgba(255,255,255,0.8)" }}
               />

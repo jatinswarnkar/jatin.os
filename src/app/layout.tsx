@@ -13,24 +13,35 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "JATIN.OS — AI Engineer & Software Engineer",
+  title: "Jatin Swarnkar — AI Engineer & Software Engineer",
   description:
-    "Software Engineer with experience in backend systems, AI-powered applications, cloud infrastructure, and data engineering. Building intelligent systems, analytics copilots, and agentic AI workflows.",
+    "AI Engineer with 1+ year building production LangChain agents, RAG pipelines, and NL-to-SQL systems. Open to AI Engineer and Software Engineer roles.",
   keywords: [
-    "AI Engineer",
-    "Software Engineer",
-    "LangGraph",
-    "LangChain",
-    "Python",
-    "Portfolio",
-    "Jatin Swarnkar",
+    "AI Engineer", "Software Engineer", "LangGraph", "LangChain",
+    "Python", "Django", "RAG", "Azure OpenAI", "Portfolio", "Jatin Swarnkar",
   ],
   authors: [{ name: "Jatin Swarnkar" }],
   openGraph: {
-    title: "JATIN.OS — AI Engineer & Software Engineer",
+    title: "Jatin Swarnkar — AI Engineer & Software Engineer",
     description:
-      "Building Intelligent Systems. AI-powered applications, cloud infrastructure, and agentic AI workflows.",
+      "AI Engineer building LangChain agents, RAG pipelines, and NL-to-SQL systems. 1+ year at Perceptiviti Data Solutions.",
     type: "website",
+    url: "https://jatin-os.vercel.app",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Jatin Swarnkar — AI Engineer & Software Engineer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Jatin Swarnkar — AI Engineer & Software Engineer",
+    description:
+      "AI Engineer building LangChain agents, RAG pipelines, and NL-to-SQL systems.",
+    images: ["/og-image.png"],
   },
 };
 
