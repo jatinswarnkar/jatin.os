@@ -24,7 +24,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any },
   },
 };
 
@@ -189,7 +189,7 @@ export default function HeroSection() {
             transition={{
               duration: 1.5,
               delay: 0.5,
-              ease: [0.16, 1, 0.3, 1],
+              ease: [0.16, 1, 0.3, 1] as any,
             }}
             className="relative w-full h-[400px] md:h-[500px] lg:h-[600px]"
           >

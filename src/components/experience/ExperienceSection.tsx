@@ -13,7 +13,7 @@ const timelineVariants = {
     transition: {
       delay: i * 0.2,
       duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as any,
     },
   }),
 };
@@ -179,7 +179,7 @@ export default function ExperienceSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as any }}
                       className="overflow-hidden"
                     >
                       <ul className="space-y-2 pt-2">

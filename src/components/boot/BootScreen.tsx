@@ -58,7 +58,7 @@ export default function BootScreen({ onBootComplete }: BootScreenProps) {
             scale: 1.05,
             filter: "blur(20px)",
           }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
         >
           {/* Subtle radial glow behind title */}
           <div
@@ -83,7 +83,7 @@ export default function BootScreen({ onBootComplete }: BootScreenProps) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as any }}
               className="text-center"
             >
               <h1
@@ -204,7 +204,7 @@ export default function BootScreen({ onBootComplete }: BootScreenProps) {
                       }
                       transition={{
                         duration: 0.3,
-                        ease: [0.16, 1, 0.3, 1],
+                        ease: [0.16, 1, 0.3, 1] as any,
                       }}
                       className="text-sm"
                       style={{
