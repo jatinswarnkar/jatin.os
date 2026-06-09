@@ -16,6 +16,7 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +58,7 @@ export default function Navbar() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as any }}
-          className="fixed top-0 left-0 right-0 z-50 px-6 py-3"
+          className="fixed top-0 left-0 right-0 z-50"
           style={{
             background: scrolled
               ? "rgba(5,8,22,0.8)"
@@ -69,7 +70,7 @@ export default function Navbar() {
             transition: "background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease",
           }}
         >
-          <div className="section-container flex items-center justify-between">
+          <div className="section-container flex items-center justify-between px-6 py-3">
             {/* Logo */}
             <a
               href="#hero"
@@ -140,7 +141,60 @@ export default function Navbar() {
                 System Active
               </span>
             </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white focus:outline-none p-2"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile menu dropdown */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden overflow-hidden"
+                style={{
+                  background: "rgba(5,8,22,0.95)",
+                  backdropFilter: "blur(20px)",
+                  borderTop: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                <div className="flex flex-col px-6 py-4 space-y-4">
+                  {NAV_LINKS.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-sm font-medium py-2"
+                      style={{
+                        fontFamily: "var(--font-space-grotesk)",
+                        color:
+                          activeSection === link.href.slice(1)
+                            ? "#00D9FF"
+                            : "rgba(255,255,255,0.7)",
+                      }}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.nav>
       )}
     </AnimatePresence>

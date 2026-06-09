@@ -55,10 +55,9 @@ export default function TerminalFooter() {
 
           {/* Terminal body */}
           <div
-            className="p-6 space-y-1"
+            className="p-4 sm:p-6 space-y-1 text-xs sm:text-[14px]"
             style={{
               fontFamily: "var(--font-space-grotesk), monospace",
-              fontSize: "14px",
             }}
           >
             {allLines.map((line, i) => (

@@ -61,7 +61,7 @@ export default function HeroSection() {
             {/* Name */}
             <motion.h1
               variants={itemVariants}
-              className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold tracking-tight leading-[0.95]"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold tracking-tight leading-[0.95]"
               style={{
                 fontFamily: "var(--font-space-grotesk)",
                 color: "#FFFFFF",
@@ -109,7 +109,7 @@ export default function HeroSection() {
             {/* Tagline */}
             <motion.p
               variants={itemVariants}
-              className="text-2xl md:text-3xl font-light"
+              className="text-xl sm:text-2xl md:text-3xl font-light"
               style={{ color: "rgba(255,255,255,0.8)" }}
             >
               {PERSONAL.tagline}
@@ -122,7 +122,7 @@ export default function HeroSection() {
             >
               <TypewriterEffect
                 strings={TYPING_STRINGS}
-                className="text-lg md:text-xl font-medium"
+                className="text-base sm:text-lg md:text-xl font-medium"
                 typeSpeed={50}
                 deleteSpeed={25}
                 pauseDuration={2500}
@@ -132,11 +132,11 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap gap-4 mt-6"
+              className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-6"
             >
               <button
                 onClick={() => scrollToSection("experience")}
-                className="px-8 py-3.5 rounded-xl cursor-pointer font-semibold text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,217,255,0.15)] hover:-translate-y-0.5"
+                className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl cursor-pointer font-semibold text-sm sm:text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,217,255,0.15)] hover:-translate-y-0.5"
                 style={{
                   background: "rgba(0,217,255,0.1)",
                   border: "1px solid rgba(0,217,255,0.3)",
@@ -159,7 +159,7 @@ export default function HeroSection() {
               </button>
               <button
                 onClick={() => scrollToSection("projects")}
-                className="px-8 py-3.5 rounded-xl cursor-pointer font-semibold text-base transition-all duration-300 hover:bg-white/5 hover:border-white/20 hover:text-white hover:-translate-y-0.5"
+                className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl cursor-pointer font-semibold text-sm sm:text-base transition-all duration-300 hover:bg-white/5 hover:border-white/20 hover:text-white hover:-translate-y-0.5"
                 style={{
                   background: "transparent",
                   border: "1px solid rgba(255,255,255,0.12)",
@@ -170,7 +170,7 @@ export default function HeroSection() {
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="px-8 py-3.5 rounded-xl cursor-pointer font-semibold text-base transition-all duration-300 hover:bg-white/5 hover:border-white/20 hover:text-white hover:-translate-y-0.5"
+                className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl cursor-pointer font-semibold text-sm sm:text-base transition-all duration-300 hover:bg-white/5 hover:border-white/20 hover:text-white hover:-translate-y-0.5"
                 style={{
                   background: "transparent",
                   border: "1px solid rgba(255,255,255,0.12)",

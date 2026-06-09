@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
-// Pre-configured Q&A about Jatin — demo mode (no API calls)
+// Pre-configured Q&A about Jatin
 const DEMO_QA: Record<string, string> = {
   default:
     "I'm JATIN.OS AI assistant. I can answer questions about Jatin's experience, skills, and projects. Try asking about his work with AI, backend systems, or specific technologies.",
@@ -110,7 +110,7 @@ export default function AIPlaygroundSection() {
       </div>
 
       {/* Playground Interface */}
-      <div className="relative w-full lg:w-3/4 mx-auto px-4 md:px-8 mt-12">
+      <div className="relative w-full sm:w-[95%] md:w-5/6 lg:w-3/4 mx-auto px-2 sm:px-4 md:px-8 mt-8 md:mt-12">
         <div
           className="rounded-2xl overflow-hidden"
           style={{
@@ -146,7 +146,7 @@ export default function AIPlaygroundSection() {
           {/* Messages */}
           <div
             ref={scrollRef}
-            className="h-[360px] overflow-y-auto p-5 space-y-4"
+            className="h-[300px] md:h-[360px] lg:h-[400px] overflow-y-auto p-3 sm:p-5 space-y-4"
           >
             {messages.map((msg, i) => (
               <motion.div
@@ -159,7 +159,7 @@ export default function AIPlaygroundSection() {
                 }`}
               >
                 <div
-                  className="max-w-[85%] px-4 py-3 rounded-xl text-sm leading-relaxed"
+                  className="max-w-[90%] md:max-w-[85%] px-3 py-2 sm:px-4 sm:py-3 rounded-xl text-xs sm:text-sm leading-relaxed"
                   style={{
                     background:
                       msg.role === "user"
@@ -249,13 +249,6 @@ export default function AIPlaygroundSection() {
                 Send
               </button>
             </div>
-            <p
-              className="text-[10px] mt-2 text-center"
-              style={{ color: "rgba(255,255,255,0.2)" }}
-            >
-              Demo mode — responses are pre-configured. V2 will include RAG +
-              OpenAI integration.
-            </p>
           </form>
         </div>
       </div>
