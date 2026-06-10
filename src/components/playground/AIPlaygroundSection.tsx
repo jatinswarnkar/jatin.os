@@ -40,43 +40,18 @@ export default function AIPlaygroundSection() {
     setIsTyping(true);
 
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "anthropic-version": "2023-06-01", "x-api-key": process.env.NEXT_PUBLIC_ANTHROPIC_API_KEY || "" },
-        body: JSON.stringify({
-          model: "claude-3-haiku-20240307",
-          max_tokens: 250,
-          system: `You are JATIN.OS, an AI assistant for Jatin Swarnkar's portfolio website.
-Answer ONLY questions about Jatin. Be concise (2-3 sentences max). Be specific and factual.
-
-JATIN'S BACKGROUND:
-- Role: Software Engineer at Perceptiviti Data Solutions, Gurgaon (July 2025–Present)
-- Previously: Software Engineer Intern at same company (Nov 2024–June 2025)
-- Education: B.Tech Computer Science, Bennett University, CGPA 8.97, May 2025
-
-KEY WORK:
-- Built NL-to-SQL analytics copilot: LangChain + Azure OpenAI + PostgreSQL, 25+ datasets, 60% efficiency gain
-- Case Management System with RBAC and row-level locking
-- Fraud Detection Platform backend
-- Multithreaded Oracle→MySQL ETL pipelines
-- Intern: automated reports (2 days→2 hours), AWS/Azure deployments, Sherlock AI rules
-
-SKILLS: Python, Django, DRF, LangChain, LangGraph, Azure OpenAI, Azure AI Foundry, FAISS, RAG, MCP, PostgreSQL, MySQL, Oracle, AWS, Azure, ETL, Git, Linux
-
-PROJECTS:
-1. AI Interview Copilot — LangGraph multi-agent: resume analysis, JD matching, skill-gap detection, question generation, learning roadmaps. Stack: LangGraph, Azure OpenAI, FAISS, Django, PostgreSQL, React. Demo: https://interview-copilot-frontend.onrender.com/
-2. Highlightly — AI video highlights: Whisper transcription, HuggingFace emotion analysis, FFmpeg clipping, Azure Blob storage. Stack: Django, OpenAI Whisper, HuggingFace, FFmpeg. Demo: https://highlightly-demo.azurewebsites.net/
-3. Chat Sphere — Django Channels WebSocket chat with Redis and PostgreSQL
-
-OPEN TO: AI Engineer and Software Engineer roles, India or Remote.
-CONTACT: jatinswarnkar04@gmail.com | linkedin.com/in/jatinswarnkar`,
-          messages: [{ role: "user", content: userMessage }],
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
       });
 
       const data = await response.json();
+      
+      if (!response.ok) throw new Error("API Error");
+
       const reply =
-        data.content?.[0]?.text ||
+        data.reply ||
         "I couldn't process that request. Try asking about Jatin's experience, skills, or projects.";
 
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
